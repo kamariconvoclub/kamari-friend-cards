@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kamari Friend Cards</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500;1,600&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3ecd6;--dot:#d9cfae;--ink:#5a3d30;--ink2:#8a6a58;--chip:#fbf6e6;--line:#cdbf9a;
+  --blue:#c7d5dc;--pink:#f1d0e0;--sage:#cdd3a4;--butter:#efe4a8;--lilac:#ddd0ea;--cream:#fbf6e6;--brown:#7b5645;--pi:#4a3226;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a211c;--dot:#3a2e27;--ink:#f0e4cc;--ink2:#c3ad93;--chip:#3a2e27;--line:#5a4739}}
+:root[data-theme="dark"]{--bg:#2a211c;--dot:#3a2e27;--ink:#f0e4cc;--ink2:#c3ad93;--chip:#3a2e27;--line:#5a4739}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;
+ background-image:radial-gradient(var(--dot) 1.2px,transparent 1.4px);background-size:18px 18px;overflow-x:hidden}
+main{max-width:560px;margin:0 auto;padding:18px 18px 56px;text-align:center}
+.px{font-family:"Pixelify Sans","Courier New",monospace}
+.dots{display:flex;gap:10px;justify-content:center;margin-bottom:18px}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--brown);background:transparent;padding:0;cursor:pointer}
+.dot[aria-current="true"]{background:var(--brown)}
+button:focus-visible{outline:3px solid #8aa0ff;outline-offset:3px}
+h1{margin:10px 0 0;font-weight:600;font-size:clamp(44px,13vw,70px);line-height:.98;color:var(--brown)}
+h2{margin:0 0 8px;font-size:clamp(36px,10vw,50px);line-height:1;color:var(--brown);font-weight:600}
+.kick{font-size:21px;font-style:italic;color:var(--ink2);margin:14px 0 4px}
+.theme{display:inline-block;margin:10px 0;padding:8px 18px;border:1.5px dashed var(--line);border-radius:999px;background:var(--chip);font-size:24px;font-style:italic;font-weight:600}
+.by{font-size:20px;color:var(--ink2)}
+.lead{font-size:22px;line-height:1.3;margin:20px auto 26px;max-width:440px}
+.btn{font:600 20px "Pixelify Sans",monospace;color:#f6ecd5;background:var(--brown);border:0;border-radius:999px;padding:15px 32px;cursor:pointer;box-shadow:0 5px 0 #4d3428;transition:transform .1s,box-shadow .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 #4d3428}
+.btn.ghost{background:var(--chip);color:var(--ink);box-shadow:0 4px 0 var(--line);border:1.5px solid var(--line);font-size:17px;padding:12px 22px}
+.fan{display:flex;justify-content:center;height:96px;margin-bottom:6px}
+.mini{width:62px;height:90px;border-radius:9px;border:3px solid var(--cream);background:var(--c);display:grid;place-items:center;margin:0 -8px;transform:rotate(var(--r));box-shadow:0 6px 12px -4px rgba(60,35,20,.4);animation:deal .6s backwards}
+.mini span{width:34px;height:52px;border-radius:50%;background:var(--cream);transform:rotate(-20deg);display:grid;place-items:center;color:var(--pi);font-size:18px}
+@keyframes deal{from{opacity:0;transform:translateY(24px) rotate(0)}}
+.how{list-style:none;padding:0;margin:18px auto;max-width:440px;text-align:left;display:grid;gap:10px}
+.how li{display:flex;gap:12px;align-items:center;font-size:20px;line-height:1.2;background:var(--chip);border:1.5px dashed var(--line);border-radius:10px;padding:8px 12px}
+.sw{flex:none;width:30px;height:42px;border-radius:6px;border:2px solid var(--cream);background:var(--c);display:grid;place-items:center;color:var(--pi);font-size:15px;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.how b{font-family:"Pixelify Sans",monospace;font-weight:600;font-size:16px;display:block;color:var(--brown)}
+.tiles{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 12px;margin:20px 0 6px}
+.tile{width:calc(33.3% - 10px);min-width:98px;max-width:150px;aspect-ratio:2/3;border-radius:14px;border:3px solid var(--cream);background:var(--c);color:var(--pi);cursor:pointer;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 6px 10px;transform:rotate(var(--r));box-shadow:0 8px 14px -6px rgba(60,35,20,.45);animation:deal .5s backwards;animation-delay:var(--d);transition:transform .15s}
+.tile:hover{transform:rotate(0) translateY(-5px)}
+.tile.mix{background:conic-gradient(var(--blue),var(--pink),var(--butter),var(--sage),var(--blue))}
+.tile.make{border-style:dashed;border-color:var(--brown)}
+.to{position:absolute;top:22%;left:50%;width:62%;aspect-ratio:3/4;transform:translate(-50%,-10%) rotate(-20deg);border-radius:50%;background:var(--cream);display:grid;place-items:center}
+.to i{font-style:normal;font-size:26px;transform:rotate(20deg)}
+.tc{position:absolute;top:5px;left:8px;font-size:15px;font-weight:600}
+.tn{font-size:13px;line-height:1.1;font-weight:600;position:relative}
+.ucard{position:relative;width:min(100%,330px);min-height:460px;margin:8px auto 0;border-radius:22px;border:6px solid var(--cream);background:var(--c);transform:rotate(var(--r,0deg));box-shadow:0 18px 30px -12px rgba(60,35,20,.5);display:grid;place-items:center;overflow:hidden}
+.ucard.mixc{background:conic-gradient(var(--blue),var(--pink),var(--butter),var(--sage),var(--blue))}
+.ucard.in{animation:flip .55s cubic-bezier(.2,.8,.2,1)}
+@keyframes flip{from{transform:rotateY(90deg) rotate(6deg) translateY(24px);opacity:0}}
+.oval{position:absolute;inset:62px 14px 62px;background:var(--cream);border-radius:50%;transform:rotate(-12deg)}
+.cn{position:absolute;font-size:28px;font-weight:600;color:var(--pi);line-height:1}
+.cn.tl{top:12px;left:16px}.cn.br{bottom:12px;right:16px;transform:rotate(180deg)}
+.txt{position:relative;z-index:1;color:var(--pi);padding:0 52px;display:flex;flex-direction:column;gap:9px;align-items:center;width:100%}
+.txt .stk{font-size:14px;color:var(--brown);font-weight:600;letter-spacing:.5px}
+.txt p{margin:0;font-style:italic;font-weight:600;font-size:27px;line-height:1.14}
+.txt.long p{font-size:22px}
+.txt em{font-size:17px;color:var(--ink2);color:#8a6a58}
+textarea{width:100%;height:150px;border:0;background:transparent;resize:none;text-align:center;font:italic 600 23px/1.15 "Cormorant Garamond",serif;color:var(--pi)}
+textarea::placeholder{color:#a58c78}
+textarea:focus-visible{outline:2px dashed var(--brown);outline-offset:4px;border-radius:12px}
+.cap{margin:20px auto 4px;max-width:330px;font-size:20px;font-style:italic;color:var(--ink2);line-height:1.25}
+.msg{min-height:26px;margin:8px 0 14px;font-size:19px;font-style:italic;color:var(--brown)}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.mine{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
+.mine span{font-style:italic;font-size:17px;background:var(--cream);color:var(--pi);padding:6px 11px;border-radius:8px;max-width:100%}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="dots" id="dots"></div>
+  <div id="app"></div>
+</main>
+<script>
+const S=[
+ {id:"start",name:"Conversation Starters",c:"--blue",icon:"☁",rule:"Ask it, then follow the answer wherever it goes.",d:"Easy openers for new friends.",cards:[
+  ["Where would you rather be if you could be anywhere but here?","use with caution 😉"],
+  ["What’s the most incredible thing that happened to you this week?"],
+  ["What’s been keeping you excited lately?"],
+  ["What’s something you know that you wish the world knew better?"],
+  ["Let me guess your occupation! Describe what you do without mentioning your job."],
+  ["Is there any way someone can brighten your day today?"],
+  ["From your first impression of me, can you guess my ethnicity? (Javanese, Sundanese, Minangnese, etc.)","only if you’re comfortable!"],
+  ["What’s a skill you’d like to have?"],
+  ["What’s your comfort food?"],
+  ["Do you have a holiday destination you’d recommend?"]]},
+ {id:"deep",name:"Deep Questions",c:"--pink",icon:"♡",rule:"Take your time. Nothing needs a perfect answer.",d:"Heartfelt ones for close friends.",cards:[
+  ["What is one (out of many, inshaaAllah) memory that always makes you smile?"],
+  ["What’s something in life you’re looking forward to?"],
+  ["What is one of your best memories of us?"],
+  ["One of the things you do that inspires me is …"],
+  ["Is there a red string theory in how we met and became friends?"],
+  ["Is there a moment when you wished you’d said something to me, but didn’t?"],
+  ["What’s the weather like in your heart?"],
+  ["Describe each other in 5 words!"]]},
+ {id:"fun",name:"Fun Questions",c:"--sage",icon:"✿",rule:"Be silly. Defend your answer.",d:"Silly and light.",cards:[
+  ["If you could have any superpower, what would it be and why?"],
+  ["What is your first memory of us?"],
+  ["If we could borrow each other’s skills, character or personality for a day, what would you do?"],
+  ["What is a funny and ridiculous thing you used to believe as a kid?"],
+  ["If you could create any ice-cream flavour, what would it be?"],
+  ["Would you rather go back to the past or ahead to the future? And why?"]]},
+ {id:"who",name:"Who’s Who",c:"--butter",icon:"★",rule:"Count to 3, then everybody points at once!",d:"Count to 3 and point at the friend who fits.",cards:[
+  ["Who is most likely to go on an impromptu trip?"],
+  ["Who is most likely to go viral for something without meaning to?","positive vibes only!"],
+  ["Who is most likely to adopt every single cat they pass by?"],
+  ["Who would do well on a reality TV show?"]]},
+ {id:"tele",name:"Telepathy Game",c:"--lilac",icon:"✧",rule:"One person asks. Count to 3, then everyone answers at the same time!",d:"One asks, everyone answers at the same time. Do you match?",cards:[
+  ["What is my go-to comfort snack?"],
+  ["What is one of my dream vacation destinations?"],
+  ["What is one of my go-to cozy activities?"]]}
+];
+const MIX={id:"mix",name:"Mix It All",c:"--blue",icon:"✦",d:"Every card shuffled together."};
+const MAKE={id:"make",name:"Make New Questions",c:"--cream",icon:"+",d:"Add your own cards."};
+const MINE={id:"mine",name:"My Questions",c:"--cream",icon:"+",rule:"Your own question. Ask away!"};
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rnd=(a,b)=>(Math.random()*(b-a)+a).toFixed(1);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const items=s=>s.cards.map((c,i)=>({s,t:c[0],n:c[1]||"",i:i+1}));
+let scr=1,view="stacks",cur=null,custom=[],pools={},msg="";
+
+function pool(id){
+  if(!pools[id]){
+    const a=id==="mix"?S.flatMap(items).concat(custom):id==="mine"?custom.slice():items(S.find(s=>s.id===id));
+    pools[id]=shuffle(a);
+  }
+  return pools[id];
+}
+function draw(id){
+  let p=pool(id);msg="";
+  if(!p.length){delete pools[id];p=pool(id);msg="Deck reshuffled. Round two!";}
+  cur={c:p.pop(),id,left:p.length};view="card";render();
+}
+function tap(id){if(id==="make"){view="make";msg="";render();}else draw(id);}
+function go(n){scr=n;view="stacks";msg="";render();window.scrollTo(0,0);}
+function addQ(){
+  const t=$("nq").value.trim();if(!t)return;
+  const it={s:MINE,t,n:"",i:custom.length+1};custom.push(it);
+  ["mix","mine"].forEach(k=>{if(pools[k])pools[k].splice(Math.floor(Math.random()*(pools[k].length+1)),0,it)});
+  msg="Added! It’s in Mix It All too.";render();
+}
+const total=()=>S.reduce((n,s)=>n+s.cards.length,0)+custom.length;
+
+function s1(){
+  return `<div class="fan" aria-hidden="true">
+    <div class="mini" style="--c:var(--blue);--r:-14deg"><span>☁</span></div>
+    <div class="mini" style="--c:var(--pink);--r:0deg;animation-delay:.1s"><span>♡</span></div>
+    <div class="mini" style="--c:var(--sage);--r:14deg;animation-delay:.2s"><span>✿</span></div></div>
+  <div class="kick">Welcome to</div>
+  <h1 class="px">Kamari<br>Friend Cards</h1>
+  <div class="kick">a post-session gift from Kamari Convo Club</div>
+  <div class="theme">What Makes A Good Friend in Me?</div>
+  <div class="by">presented by Kamari Sister Club</div>
+  <p class="lead">Use these cards as conversation prompts with your new friends, or with the ones who have been there with you in your ups and downs!</p>
+  <button class="btn" onclick="go(2)">I’m ready to play!</button>`;
+}
+function s2(){
+  const li=s=>`<li><span class="sw" style="--c:var(${s.c});${s.id==="mix"?"background:conic-gradient(var(--blue),var(--pink),var(--butter),var(--sage),var(--blue))":""}">${s.icon}</span><div><b>${s.name}</b>${s.d}</div></li>`;
+  return `<h2 class="px">How to play</h2>
+  <p class="lead" style="margin:10px auto 0">You’ll see 7 stacks of cards on your screen. Every stack is a category of prompts. Tap a stack, draw a card, read it out loud, and take turns!</p>
+  <ul class="how">${[...S,MIX,MAKE].map(li).join("")}</ul>
+  <p class="lead" style="margin:0 auto 22px;font-size:20px;color:var(--ink2);font-style:italic">Tap <b>Mix It All</b> to shuffle everything, or <b>Make New Questions</b> to add your own. Your questions last for this visit only.</p>
+  <button class="btn" onclick="go(3)">Let the convo begin!</button>`;
+}
+function cardHtml(c){
+  const mixc=cur.id==="mix"?"":"";
+  return `<div class="ucard in" style="--c:var(${c.s.c});--r:${rnd(-2,2)}deg">
+   <span class="cn tl px">${String(c.i).padStart(2,"0")}</span><span class="cn br px">${String(c.i).padStart(2,"0")}</span>
+   <div class="oval"></div>
+   <div class="txt${c.t.length>75?" long":""}"><div class="stk px">${c.s.name}</div><p>${esc(c.t)}</p>${c.n?`<em>${esc(c.n)}</em>`:""}</div></div>`;
+}
+function s3(){
+  if(view==="card"){
+    const c=cur.c;
+    return `<h2 class="px" style="font-size:30px">${cur.id==="mix"?"Mix It All":c.s.name}</h2>
+    ${cardHtml(c)}
+    <div class="cap">${c.s.rule}</div>
+    <div class="msg">${msg||cur.left+" left in this stack"}</div>
+    <div class="row"><button class="btn" onclick="draw('${cur.id}')">Draw another</button>
+    <button class="btn ghost" onclick="view='stacks';render()">Back to stacks</button></div>`;
+  }
+  if(view==="make"){
+    return `<h2 class="px" style="font-size:30px">Make New Questions</h2>
+    <div class="ucard" style="--c:var(--cream);--r:-1deg;background:var(--cream);border-color:var(--brown);border-style:dashed">
+     <div class="oval" style="background:#fffaf0"></div>
+     <div class="txt"><div class="stk px">Your question</div><textarea id="nq" maxlength="140" placeholder="Type a question for your friends…" aria-label="Your question"></textarea></div></div>
+    <div class="msg" style="margin-top:18px">${msg||"Your questions last for this visit only, and join Mix It All."}</div>
+    ${custom.length?`<div class="mine">${custom.map(x=>`<span>${esc(x.t)}</span>`).join("")}</div>`:""}
+    <div class="row"><button class="btn" onclick="addQ()">Add to the deck</button>
+    ${custom.length?`<button class="btn ghost" onclick="draw('mine')">Draw mine</button>`:""}
+    <button class="btn ghost" onclick="view='stacks';render()">Back to stacks</button></div>`;
+  }
+  const t=(s,k)=>{
+    const cnt=s.id==="mix"?total():s.id==="make"?"+":s.cards.length;
+    return `<button class="tile ${s.id}" style="--c:var(${s.c});--r:${rnd(-3,3)}deg;--d:${k*70}ms" onclick="tap('${s.id}')" aria-label="${s.name}">
+     <span class="tc px">${cnt}</span><span class="to"><i>${s.icon}</i></span><span class="tn px">${s.name}</span></button>`;
+  };
+  return `<h2 class="px">Pick a stack</h2><div class="kick" style="margin-top:6px">tap one to draw a card</div>
+  <div class="tiles">${[...S,MIX,MAKE].map(t).join("")}</div>`;
+}
+function render(){
+  $("dots").innerHTML=[1,2,3].map(n=>`<button class="dot" aria-label="Slide ${n}" aria-current="${n===scr}" onclick="go(${n})"></button>`).join("");
+  $("app").innerHTML=scr===1?s1():scr===2?s2():s3();
+}
+render();
+</script>
+</body>
+</html>
